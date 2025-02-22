@@ -7,6 +7,9 @@ from google.genai import types
 import httpx
 
 import json
+import os
+
+GENAI_KEY = os.getenv("GENAI_KEY")
 
 def extract_data_from_text(response_text):
 
