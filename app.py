@@ -58,7 +58,7 @@ prompt = """
         }
         """
 
-st.title("PDF or URL Metadata Extractor")
+st.title("Genetic Variant Metadata Extractor")
 
 upload_type = st.radio('Select input type:', ('Upload a PDF File', 'Enter a URL'))
 
