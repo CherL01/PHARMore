@@ -101,7 +101,7 @@ st.markdown("""
     <div style="text-align: center; margin-bottom: 20px;">
         <p style="color: #48cae4; font-size: 3rem; margin-bottom: 10px;">PHARMore 💊</p>
         <p style="color: #00b4d8; font-size: 2rem; margin-bottom: 5px;">Drug Discovery and Medical Research Assistant</p>
-        <p style="font-size: 1.0rem; color: #0096c7;">Extract detailed metadata from medical reports and papers. Answer drug and diease related queries.</p>
+        <p style="font-size: 1.0rem; color: #0096c7;">Extract detailed metadata from medical reports and papers. Answer drug and disease related queries.</p>
     </div>
 """, unsafe_allow_html=True)
 
