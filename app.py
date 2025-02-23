@@ -8,6 +8,8 @@ import os
 from google import genai
 from google.genai import types
 
+from drug_discovery import train_autoencoder, get_similar_drugs_autoencoder
+
 GENAI_KEY = os.getenv("GENAI_KEY")
 client = genai.Client(api_key=GENAI_KEY)
 
@@ -97,13 +99,13 @@ prompt = """
 
 st.markdown("""
     <div style="text-align: center; margin-bottom: 20px;">
-        <h1 style="color: #48cae4; font-size: 3rem; margin-bottom: 10px;">PHARMore 💊</h1>
-        <h2 style="color: #00b4d8; font-size: 2rem; margin-bottom: 5px;">Drug Discovery and Medical Research Assistant</h2>
-        <p style="font-size: 1.2rem; color: #0096c7;">Extract detailed metadata from medical reports and papers.</p>
+        <p style="color: #48cae4; font-size: 3rem; margin-bottom: 10px;">PHARMore 💊</p>
+        <p style="color: #00b4d8; font-size: 2rem; margin-bottom: 5px;">Drug Discovery and Medical Research Assistant</p>
+        <p style="font-size: 1.0rem; color: #0096c7;">Extract detailed metadata from medical reports and papers. Answer drug and diease related queries.</p>
     </div>
 """, unsafe_allow_html=True)
 
-tabs = st.tabs(["PDF File", "URL", "Chatbot"])
+tabs = st.tabs(["PDF File", "URL", "Chatbot", "Drug Discovery"])
 
 # ---------------- PDF Tab ----------------
 with tabs[0]:
@@ -174,3 +176,17 @@ with tabs[2]:
             else:
                 st.markdown(f"**Bot:** {chat['content']}")
 
+# ---------------- Drug Discovery Tab ----------------
+with tabs[3]:
+    st.subheader("Drug Discovery")
+    st.write("Enter a PubChem id (ie. 54675785) to find a similar drug using our deep learning model. Drugs are returned in the format [DRUG_ID: SIMILARITY_SCORE].")
+
+    with st.form("drug_form", clear_on_submit=True):
+        drug_input = st.text_input("Enter a PubChem id:")
+        submitted_drug = st.form_submit_button("Find Similar Drug")
+        if submitted_drug and drug_input:
+            sim_df = train_autoencoder()
+            similar_drug = get_similar_drugs_autoencoder(drug_input, sim_df)
+            st.write(f"Drug query: {drug_input} | Similar drugs:")
+            st.table(similar_drug)
+            # st.success(f"Drug query: {drug_input} | Similar drugs: {similar_drug}")

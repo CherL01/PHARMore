@@ -3,3 +3,5 @@ pandas
 requests
 google-genai
 httpx
+torchvision
+scikit-learn
