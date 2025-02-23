@@ -134,7 +134,7 @@ with tabs[1]:
                 extracted_data = generate_extraction(doc_data, mime_type='application/pdf')
                 if extracted_data:
                     df = pd.DataFrame([extracted_data])
-                    st.markdown('<div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">', unsafe_allow_html=True)
+                    # st.markdown('<div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">', unsafe_allow_html=True)
                     st.write("Extracted URL Metadata:", df)
                     st.markdown('</div>', unsafe_allow_html=True)
                 else:
