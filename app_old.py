@@ -52,12 +52,11 @@ def generate_extraction(content_bytes, mime_type):
 def fetch_url_content(url):
     """Fetch and return the content from a URL if it appears to be a PDF."""
     try:
-        r = requests.head(url, allow_redirects=True)
-        content_type = r.headers.get("Content-Type", "").lower()
-        if "pdf" not in content_type:
-            st.warning("The URL does not appear to point to a PDF. Attempting to process anyway.")
-        # Cache the full content
-        doc = httpx.get(url).content
+        response = requests.get(url)
+        if response.status_code == 200:
+            # title = response.text.split("<title>")[1].split("</title>")[0] if "<title>" in response.text else "No Title"
+            
+            doc = httpx.get(url).content
         return doc
     except Exception as e:
         st.error(f"Error fetching URL: {str(e)}")
